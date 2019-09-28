@@ -1,0 +1,193 @@
+<!DOCTYPE HTML>
+<HTML>
+
+<HEAD>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <!-- A biblioteca bundle já contem os arquivos JS do Bootstrap, Popper, e jQuery.
+    <script src="js/bootstrap.bundle.js"></script>-->
+    <title>FTT EC LP2 N1!!</title>
+    <LINK REL="stylesheet" HREF="css/bootstrap.css" />
+    <STYLE>
+        .center-txt {
+            text-align: center;
+            color: black;
+            width: 90px;
+            padding: 4px;
+            margin:0;
+            border:0;
+        }
+        .button-selected {
+            background-color: #343a40;
+            color: white;
+            border-radius: 15px;
+        }       
+        .width-button-bar {
+            text-align: center;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            margin-right: 0;
+            margin-left: 0;
+            
+        }
+        .bottom-button-bar {
+            margin:0;
+            padding:0;
+            border:0;
+            width: 100%;
+        }
+        .icon-font {
+            font-size: 40px;   
+        }
+        main {
+            padding-top: 56px;
+            padding-bottom: 50px;
+        }
+        .apIframe{
+            width: 600px
+            height: 450px
+        }
+
+    </STYLE>
+    <SCRIPT>
+        function checkCEP(){
+            //https://viacep.com.br/ws/09121120/json/
+            var cepInserido = document.getElementById('cepInserido').value;
+            var cepInformado = '09121120';
+            var xmlhttp = new XMLHttpRequest();
+            var url = `https://viacep.com.br/ws/${cepInserido}/json/`;
+            var valueResponse = ''; 
+            var scrMap = ''
+            xmlhttp.onreadystatechange = function (){
+                if (this.readyState == 4 && this.status == 200) {
+                    valueResponse = JSON.parse(this.responseText);                        
+
+                    document.getElementById("logradouro").value = valueResponse.logradouro;
+                    //document.getElementById("complemento").value = valueResponse.complemento;
+                    document.getElementById("bairro").value = valueResponse.bairro;
+                    document.getElementById("localidade").value = valueResponse.localidade;
+                    document.getElementById("uf").value = valueResponse.uf;
+                    //document.getElementById("unidade").value = valueResponse.unidade;
+                    document.getElementById("ibge").value = valueResponse.ibge;
+                    document.getElementById("gia").value = valueResponse.gia;
+
+                    var myKey = "AIzaSyCMSdP8M2Z37a-1rpEXhtfL1wUj7cU0dDU"
+                    var myLocatin = `${cepInserido} +, ${valueResponse.logradouro} +, ${valueResponse.bairro} +, ${valueResponse.uf} `;
+                    scrMap = `https://www.google.com/maps/embed/v1/place?key=${myKey}&q=${myLocatin}`
+                    document.getElementById("mapIframe").src = scrMap;                        
+                }
+            };
+            xmlhttp.open("GET", url, true);    
+            xmlhttp.send();
+        }
+    </SCRIPT>
+</HEAD>
+
+<BODY lang="pt-br">
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <a class="navbar-brand" href="#">&#x1F981; FTT EC LP2 N1!!!</a>
+
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+            <div class="navbar-nav float-right text-right pr-3">
+                <a class="nav-item nav-link" href="index.html">Splash</a>
+                <a class="nav-item nav-link" href="http://www.fundacaosalvadorarena.org.br/" target="newpage">CEFSA</a>
+                <a class="nav-item nav-link" href="about.html">Sobre</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container" id="aluno">
+
+        <hr>
+
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">CEP:</span>
+          </div>
+          <input id="cepInserido" type="text" class="form-control" placeholder="00.000-000" aria-label="00.000-000" aria-describedby="basic-addon1">
+        </div>
+
+        <div>
+            <button id="verificarCEP" type="button" class="btn btn-primary btn-lg btn-block" onclick="checkCEP()">Buscar CEP</button>
+        </div>
+
+        <hr>
+
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">Endereço:</span>
+          </div>
+          <input id="logradouro" type="text" class="form-control" placeholder="Endereço" aria-label="Endereço" aria-describedby="basic-addon1" readonly>
+        </div>
+
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">Bairro:</span>
+          </div>
+          <input id="bairro" type="text" class="form-control" placeholder="Bairro" aria-label="Bairro" aria-describedby="basic-addon1" readonly>
+        </div>
+
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">Localidade:</span>
+          </div>
+          <input id="localidade" type="text" class="form-control" placeholder="Localidade" aria-label="Localidade" aria-describedby="basic-addon1" readonly>
+        </div>
+
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">UF:</span>
+          </div>
+          <input id="uf" type="text" class="form-control" placeholder="UF" aria-label="UF" aria-describedby="basic-addon1" readonly>
+        </div>
+
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">IBGE:</span>
+          </div>
+          <input id="ibge" type="text" class="form-control" placeholder="IBGE" aria-label="IBGE" aria-describedby="basic-addon1" readonly>
+        </div>
+
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">GIA:</span>
+          </div>
+          <input id="gia" type="text" class="form-control" placeholder="GIA" aria-label="GIA" aria-describedby="basic-addon1" readonly>
+        </div>
+
+        <iframe 
+            id="mapIframe"
+            style="border:0"
+            src='' allowfullscreen
+            width="100%" 
+            height="400" 
+            frameborder="0" 
+            scrolling="no" 
+            marginheight="0" 
+            marginwidth="0">
+        </iframe>
+    </main>
+
+    <nav class="navbar fixed-bottom navbar-light bg-light width-button-bar">
+        <div class="row w-100 bottom-button-bar">
+            <div class="col-sm center-txt"><b onclick='window.location="tab01news.html"'>News<br><span class="icon-font">&#x1f4f0;</span></b>
+            </div>
+            <div class="col-sm center-txt"><b onclick='window.location="tab02map.html"'>Map<br><span class="icon-font">&#x1f4cc;</span></b>
+            </div>
+            <div class="col-sm center-txt"><b onclick='window.location="tab03todo.html"'>Todo<br><span class="icon-font">&#x1F4DD;</span></b>
+            </div>
+            <div class="col-sm center-txt button-selected"><b onclick='window.location="tab04project.html"'>Buscar CEP<br><span class="icon-font">&#x1F6A9;</span></b>
+            </div>
+        </div>
+    </nav>
+</BODY>
+<!-- carga de scripts do Bootstrap, JQuery, Popper -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+
+</HTML>
